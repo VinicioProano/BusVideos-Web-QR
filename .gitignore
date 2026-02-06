@@ -1,0 +1,5 @@
+# APKs
+*.apk
+
+# Android Studio
+.idea/

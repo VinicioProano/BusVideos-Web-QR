@@ -42,25 +42,46 @@
 </head>
 <body>
 
-    <h1>🎬 BusVideos</h1>
+<script>
+    // --- VALIDACIÓN DE QR ---
+    const params = new URLSearchParams(window.location.search);
+    const bus = params.get("bus");
 
-    <p>Entretenimiento a bordo</p>
+    // Si no viene bus, no renderiza nada
+    if (!bus) {
+        document.body.innerHTML = "";
+        throw new Error("QR sin parámetro bus");
+    }
 
-    <!-- BOTÓN ABRIR APP -->
-    <a class="btn" href="busvideos://open">
-        ▶ Abrir BusVideos
-    </a>
+    // URL HTTP DE PRUEBA (temporal)
+    const INSTALL_URL_TEST = "https://busvideos.github.io/BusVideos-Web-QR/?bus=BV-CCC-001";
+</script>
 
-    <!-- BOTÓN INSTALAR APP -->
-    <a class="btn secondary"
-       href="BusVideos.apk">
-        ⬇ Instalar BusVideos
-    </a>
+<h1>🎬 BusVideos</h1>
 
-    <p class="note">
-        Android requerido<br>
-        iPhone: accede desde el navegador
-    </p>
+<p>Entretenimiento a bordo</p>
+
+<!-- BOTÓN ABRIR / ACTIVAR APP (SIEMPRE VISIBLE) -->
+<a class="btn" href="busvideos://open">
+    ▶ Abrir BusVideos
+</a>
+
+<!-- BOTÓN INSTALAR APP (SIEMPRE VISIBLE) -->
+<a class="btn secondary" id="btnInstalar">
+    ⬇ Instalar BusVideos
+</a>
+
+<p class="note">
+    Android requerido<br>
+    iPhone: accede desde el navegador
+</p>
+
+<script>
+    // Acción del botón Instalar (usa HTTP de prueba)
+    document.getElementById("btnInstalar").addEventListener("click", () => {
+        window.location.href = INSTALL_URL_TEST;
+    });
+</script>
 
 </body>
 </html>

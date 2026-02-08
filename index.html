@@ -23,26 +23,39 @@
             margin: 8px 0;
         }
 
-        .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+       .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    margin: 16px auto;
-    height: 52px;              /* 🔑 MISMA ALTURA */
-    width: 100%;
-    max-width: 320px;
+            box-sizing: border-box;        /* 🔑 CLAVE */
+            margin: 16px auto;
 
-    font-size: 18px;
-    font-weight: 500;
+            width: 100%;
+            max-width: 320px;
+            height: 52px;
 
-    color: #ffffff;
-    background-color: #1a73e8;
+            padding: 0;                    /* 🔑 elimina diferencias */
+            line-height: 1;
 
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    cursor: pointer;
+            font-size: 18px;
+            font-weight: 500;
+
+            color: #ffffff;
+            background-color: #1a73e8;
+
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+/* fuerza que <a> y <button> sean idénticos */
+a.btn,
+button.btn {
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
 }
 
 .secondary {

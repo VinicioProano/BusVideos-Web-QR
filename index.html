@@ -12,6 +12,17 @@
             padding: 24px;
             background-color: #ffffff;
         }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 8px 0;
+        }
+
         .btn {
             display: block;
             margin: 16px auto;
@@ -23,14 +34,24 @@
             background-color: #1a73e8;
             border: none;
             border-radius: 6px;
+            text-decoration: none; /* 🔑 evita subrayado */
+            cursor: pointer;
         }
+
         .secondary {
             background-color: #4caf50;
         }
+
         .note {
             font-size: 14px;
             color: #555;
             margin-top: 24px;
+        }
+
+        #busInfo {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #555;
         }
     </style>
 </head>
@@ -44,25 +65,22 @@
     const params = new URLSearchParams(window.location.search);
     const bus = params.get("bus");
     const fromApp = params.get("from") === "app";
-
-    if (!bus) {
-        document.body.innerHTML = "";
-        return;
-    }
 </script>
 
 <h1>🎬 BusVideos</h1>
 
 <p id="subtitle">Entretenimiento a bordo</p>
 
-<!-- MOSTRAR BUS (SOLO PRUEBAS) -->
-<p id="busInfo" style="margin-top:12px; font-size:14px; color:#555;"></p>
+<!-- MOSTRAR CÓDIGO DE BUS (SOLO PRUEBAS) -->
+<p id="busInfo"></p>
 
 <!-- BOTÓN INSTALAR -->
-<a class="btn secondary"
-   href="https://raw.githubusercontent.com/VinicioProano/BusVideos-Web-QR/master/BusVideos.apk"
-   download>
-   ⬇ Instalar BusVideos
+<a
+    class="btn secondary"
+    href="https://raw.githubusercontent.com/VinicioProano/BusVideos-Web-QR/master/BusVideos.apk"
+    download
+>
+    ⬇ Instalar BusVideos
 </a>
 
 <!-- BOTÓN ACTIVAR -->
@@ -76,18 +94,36 @@
 </p>
 
 <script>
-    // Mostrar código del bus
-    document.getElementById("busInfo").innerText =
-        "Código de bus detectado: " + bus;
+    // ===============================
+    // MOSTRAR CÓDIGO BUS (PRUEBAS)
+    // ===============================
+    const busInfo = document.getElementById("busInfo");
 
-    // Texto dinámico
+    if (bus) {
+        busInfo.innerText = "Código de bus detectado: " + bus;
+    } else {
+        busInfo.innerText = "⚠️ No llegó parámetro ?bus= en la URL";
+    }
+
+    // ===============================
+    // TEXTO DINÁMICO
+    // ===============================
     const subtitle = document.getElementById("subtitle");
+
     subtitle.innerText = fromApp
         ? "Pulse Activar BusVideos para continuar"
-        : "Instale la app y luego pulse Abrir BusVideos";
+        : "Instale la app y luego pulse Activar BusVideos";
 
-    // Acción Activar
+    // ===============================
+    // ACCIÓN BOTÓN ACTIVAR
+    // ===============================
     document.getElementById("btnActivar").addEventListener("click", () => {
+        if (!bus) {
+            alert("No se detectó el código del bus.");
+            return;
+        }
+
+        // Abrir la app en modo activación
         window.location.href = `busvideos://open?modo=activar&bus=${bus}`;
     });
 </script>

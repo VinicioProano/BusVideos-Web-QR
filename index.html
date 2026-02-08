@@ -4,64 +4,37 @@
     <meta charset="UTF-8">
     <title>BusVideos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 24px;
-        background-color: #ffffff;
-    }
-
-    h1 {
-        font-size: 26px;
-        margin-bottom: 6px;
-    }
-
-    p {
-        font-size: 16px;
-        margin-bottom: 24px;
-        color: #333;
-    }
-
-    /* Normaliza <a> y <button> */
-    .btn {
-        display: block;
-        margin: 16px auto;
-        padding: 16px;
-        width: 100%;
-        max-width: 320px;
-
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-
-        color: #ffffff;
-        background-color: #1a73e8;
-
-        border: none;
-        border-radius: 8px;
-        text-decoration: none;
-
-        cursor: pointer;
-
-        /* MUY IMPORTANTE */
-        appearance: none;
-        -webkit-appearance: none;
-        box-sizing: border-box;
-    }
-
-    .secondary {
-        background-color: #4caf50;
-    }
-
-    .note {
-        font-size: 13px;
-        color: #666;
-        margin-top: 24px;
-        line-height: 1.4;
-    }
-</style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 24px;
+            background-color: #ffffff;
+        }
+        .btn {
+            display: block;
+            margin: 16px auto;
+            padding: 14px;
+            width: 100%;
+            max-width: 320px;
+            font-size: 18px;
+            color: white;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 6px;
+        }
+        .secondary {
+            background-color: #4caf50;
+        }
+        .note {
+            font-size: 14px;
+            color: #555;
+            margin-top: 24px;
+        }
+    </style>
 </head>
+
 <body>
 
 <script>
@@ -72,7 +45,6 @@
     const bus = params.get("bus");
     const fromApp = params.get("from") === "app";
 
-    // Si no viene bus, no se muestra nada
     if (!bus) {
         document.body.innerHTML = "";
         return;
@@ -83,28 +55,20 @@
 
 <p id="subtitle">Entretenimiento a bordo</p>
 
-<!-- BOTÓN INSTALAR APP (SIEMPRE VISIBLE, SIN ACCIÓN REAL AÚN) -->
+<!-- MOSTRAR BUS (SOLO PRUEBAS) -->
+<p id="busInfo" style="margin-top:12px; font-size:14px; color:#555;"></p>
+
+<!-- BOTÓN INSTALAR -->
 <a class="btn secondary"
    href="https://raw.githubusercontent.com/VinicioProano/BusVideos-Web-QR/master/BusVideos.apk"
    download>
    ⬇ Instalar BusVideos
 </a>
 
-<!-- BOTÓN ACTIVAR APP (SIEMPRE VISIBLE) -->
+<!-- BOTÓN ACTIVAR -->
 <button id="btnActivar" class="btn" type="button">
     ▶ Activar BusVideos
 </button>
-
-<script>
-    const btnActivar = document.getElementById("btnActivar");
-
-    btnActivar.addEventListener("click", () => {
-    if (!bus) return;
-
-    // Abrir la app directamente en modo activación
-    window.location.href = `busvideos://open?modo=activar&bus=${bus}`;
-    });
-</script>
 
 <p class="note">
     Android requerido<br>
@@ -112,18 +76,20 @@
 </p>
 
 <script>
-    // ===============================
-    // COMPORTAMIENTO SEGÚN from=app
-    // ===============================
-    const subtitle = document.getElementById("subtitle");
+    // Mostrar código del bus
+    document.getElementById("busInfo").innerText =
+        "Código de bus detectado: " + bus;
 
-    if (fromApp) {
-        // Retorno desde la app
-        subtitle.innerText = "Pulse Activar BusVideos para continuar";
-    } else {
-        // Primer escaneo
-        subtitle.innerText = "Instale la app y luego pulse Abrir BusVideos";
-    }
+    // Texto dinámico
+    const subtitle = document.getElementById("subtitle");
+    subtitle.innerText = fromApp
+        ? "Pulse Activar BusVideos para continuar"
+        : "Instale la app y luego pulse Abrir BusVideos";
+
+    // Acción Activar
+    document.getElementById("btnActivar").addEventListener("click", () => {
+        window.location.href = `busvideos://open?modo=activar&bus=${bus}`;
+    });
 </script>
 
 </body>

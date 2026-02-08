@@ -91,9 +91,20 @@
 </a>
 
 <!-- BOTÓN ACTIVAR APP (SIEMPRE VISIBLE) -->
-<button class="btn" type="button">
+<button id="btnActivar" class="btn" type="button">
     ▶ Activar BusVideos
 </button>
+
+<script>
+    const btnActivar = document.getElementById("btnActivar");
+
+    btnActivar.addEventListener("click", () => {
+    if (!bus) return;
+
+    // Abrir la app directamente en modo activación
+    window.location.href = `busvideos://open?modo=activar&bus=${bus}`;
+    });
+</script>
 
 <p class="note">
     Android requerido<br>

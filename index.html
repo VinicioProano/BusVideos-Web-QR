@@ -83,6 +83,17 @@ button.btn {
     // VALIDACIÓN DE QR
     // ===============================
     const params = new URLSearchParams(window.location.search);
+
+// 1. Intentar leer desde la URL
+let bus = params.get("bus");
+
+// 2. Si viene en URL, GUARDARLO
+if (bus && bus.trim() !== "") {
+    localStorage.setItem("BUSVIDEOS_BUS", bus);
+} else {
+    // 3. Si no viene en URL, RECUPERARLO
+    bus = localStorage.getItem("BUSVIDEOS_BUS");
+}
     const bus = params.get("bus");
     const fromApp = params.get("from") === "app";
 </script>

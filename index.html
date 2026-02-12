@@ -80,18 +80,20 @@ button.btn {
 
 <script>
     // ===============================
-    // VALIDACIÓN DE QR
+    // PARÁMETROS DE URL
     // ===============================
     const params = new URLSearchParams(window.location.search);
 
     let bus = params.get("bus");
     const fromApp = params.get("from") === "app";
+    const installed = params.get("installed");
 
-    // Si viene bus en la URL → guardarlo
+    // ===============================
+    // GUARDAR / RECUPERAR BUS
+    // ===============================
     if (bus && bus.trim() !== "") {
         localStorage.setItem("BUSVIDEOS_BUS", bus);
     } else {
-        // Si no viene → recuperarlo
         bus = localStorage.getItem("BUSVIDEOS_BUS");
     }
 </script>
@@ -100,11 +102,11 @@ button.btn {
 
 <p id="subtitle">Entretenimiento a bordo</p>
 
-<!-- MOSTRAR CÓDIGO DE BUS (SOLO PRUEBAS) -->
 <p id="busInfo"></p>
 
 <!-- BOTÓN INSTALAR -->
 <a
+    id="btnInstalar"
     class="btn secondary"
     href="https://raw.githubusercontent.com/VinicioProano/BusVideos-Web-QR/master/BusVideos.apk"
     download
@@ -124,7 +126,7 @@ button.btn {
 
 <script>
     // ===============================
-    // MOSTRAR CÓDIGO BUS (PRUEBAS)
+    // MOSTRAR CÓDIGO BUS
     // ===============================
     const busInfo = document.getElementById("busInfo");
 
@@ -144,7 +146,20 @@ button.btn {
         : "Instale la app y luego pulse Activar BusVideos";
 
     // ===============================
-    // ACCIÓN BOTÓN ACTIVAR
+    // DESACTIVAR INSTALAR SI YA INSTALÓ
+    // ===============================
+    if (installed === "true") {
+        const btnInstalar = document.getElementById("btnInstalar");
+
+        if (btnInstalar) {
+            btnInstalar.style.pointerEvents = "none";
+            btnInstalar.style.opacity = "0.5";
+            btnInstalar.innerText = "App ya instalada";
+        }
+    }
+
+    // ===============================
+    // BOTÓN ACTIVAR
     // ===============================
     document.getElementById("btnActivar").addEventListener("click", () => {
         if (!bus) {
@@ -152,7 +167,6 @@ button.btn {
             return;
         }
 
-        // Abrir la app en modo activación
         window.location.href = `busvideos://open?modo=activar&bus=${bus}`;
     });
 </script>

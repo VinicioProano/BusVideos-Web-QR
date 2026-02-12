@@ -124,6 +124,20 @@
 
         window.location.href = `busvideos://open?modo=activar&bus=${bus}`;
     });
+
+    // ===============================
+// AUTO ABRIR APP SI ESTÁ INSTALADA
+// ===============================
+if (bus && !fromApp && !params.get("installed")) {
+
+    // Intentamos abrir la app
+    const deepLink = `busvideos://open?bus=${bus}`;
+
+    // Pequeño delay para que cargue la página primero
+    setTimeout(() => {
+        window.location.href = deepLink;
+    }, 500);
+}
 </script>
 
 </body>

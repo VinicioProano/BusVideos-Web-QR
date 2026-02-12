@@ -78,29 +78,9 @@ button.btn {
 
 <body>
 
-<script>
-    // ===============================
-    // PARÁMETROS DE URL
-    // ===============================
-    const params = new URLSearchParams(window.location.search);
-
-    let bus = params.get("bus");
-    const fromApp = params.get("from") === "app";
-    const installed = params.get("installed");
-
-    // ===============================
-    // GUARDAR / RECUPERAR BUS
-    // ===============================
-    if (bus && bus.trim() !== "") {
-        localStorage.setItem("BUSVIDEOS_BUS", bus);
-    } else {
-        bus = localStorage.getItem("BUSVIDEOS_BUS");
-    }
-</script>
-
 <h1>🎬 BusVideos</h1>
 
-<p id="subtitle">Entretenimiento a bordo</p>
+<p id="subtitle">Instale la app y luego pulse Activar BusVideos</p>
 
 <p id="busInfo"></p>
 
@@ -115,7 +95,7 @@ button.btn {
 </a>
 
 <!-- BOTÓN ACTIVAR -->
-<button id="btnActivar" class="btn" type="button">
+<button id="btnActivar" class="btn primary" type="button">
     ▶ Activar BusVideos
 </button>
 
@@ -125,6 +105,23 @@ button.btn {
 </p>
 
 <script>
+    // ===============================
+    // PARÁMETROS
+    // ===============================
+    const params = new URLSearchParams(window.location.search);
+
+    let bus = params.get("bus");
+    const fromApp = params.get("from") === "app";
+
+    // ===============================
+    // GUARDAR / RECUPERAR BUS
+    // ===============================
+    if (bus && bus.trim() !== "") {
+        localStorage.setItem("BUSVIDEOS_BUS", bus);
+    } else {
+        bus = localStorage.getItem("BUSVIDEOS_BUS");
+    }
+
     // ===============================
     // MOSTRAR CÓDIGO BUS
     // ===============================
@@ -144,22 +141,6 @@ button.btn {
     subtitle.innerText = fromApp
         ? "Pulse Activar BusVideos para continuar"
         : "Instale la app y luego pulse Activar BusVideos";
-
-    // ===============================
-    // DESACTIVAR INSTALAR SI YA INSTALÓ
-    // ===============================
-    const params = new URLSearchParams(window.location.search);
-    const installed = params.get("installed");
-
-if (installed === "true") {
-    const btnInstalar = document.getElementById("btnInstalar");
-
-    if (btnInstalar) {
-        btnInstalar.removeAttribute("href");
-        btnInstalar.style.opacity = "0.5";
-        btnInstalar.innerText = "App ya instalada";
-    }
-}
 
     // ===============================
     // BOTÓN ACTIVAR

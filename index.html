@@ -1,81 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>BusVideos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BusVideos</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 24px;
-            background-color: #ffffff;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 24px;
+        background-color: #ffffff;
+    }
 
-        h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
+    h1 {
+        font-size: 28px;
+    }
 
-        p {
-            font-size: 16px;
-            margin: 8px 0;
-        }
+    .btn {
+        display: block;
+        margin: 16px auto;
+        padding: 14px;
+        width: 90%;
+        max-width: 320px;
+        border-radius: 8px;
+        font-size: 16px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
 
-       .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    .secondary {
+        background-color: #4CAF50;
+        color: white;
+    }
 
-            box-sizing: border-box;        /* 🔑 CLAVE */
-            margin: 16px auto;
+    .primary {
+        background-color: #1976D2;
+        color: white;
+    }
 
-            width: 100%;
-            max-width: 320px;
-            height: 52px;
-
-            padding: 0;                    /* 🔑 elimina diferencias */
-            line-height: 1;
-
-            font-size: 18px;
-            font-weight: 500;
-
-            color: #ffffff;
-            background-color: #1a73e8;
-
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-/* fuerza que <a> y <button> sean idénticos */
-a.btn,
-button.btn {
-    appearance: none;
-    -webkit-appearance: none;
-    outline: none;
-}
-
-.secondary {
-    background-color: #4caf50;
-}
-
-        .note {
-            font-size: 14px;
-            color: #555;
-            margin-top: 24px;
-        }
-
-        #busInfo {
-            margin-top: 12px;
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
+    .note {
+        font-size: 13px;
+        color: #666;
+        margin-top: 20px;
+    }
+</style>
 </head>
-
 <body>
 
 <h1>🎬 BusVideos</h1>

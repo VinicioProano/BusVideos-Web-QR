@@ -148,15 +148,18 @@ button.btn {
     // ===============================
     // DESACTIVAR INSTALAR SI YA INSTALÓ
     // ===============================
-    if (installed === "true") {
-        const btnInstalar = document.getElementById("btnInstalar");
+    const params = new URLSearchParams(window.location.search);
+    const installed = params.get("installed");
 
-        if (btnInstalar) {
-            btnInstalar.style.pointerEvents = "none";
-            btnInstalar.style.opacity = "0.5";
-            btnInstalar.innerText = "App ya instalada";
-        }
+if (installed === "true") {
+    const btnInstalar = document.getElementById("btnInstalar");
+
+    if (btnInstalar) {
+        btnInstalar.removeAttribute("href");
+        btnInstalar.style.opacity = "0.5";
+        btnInstalar.innerText = "App ya instalada";
     }
+}
 
     // ===============================
     // BOTÓN ACTIVAR

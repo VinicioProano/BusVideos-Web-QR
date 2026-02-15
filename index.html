@@ -40,10 +40,21 @@
         color: white;
     }
 
+    .dark {
+        background-color: #673AB7;
+        color: white;
+    }
+
     .note {
         font-size: 13px;
         color: #666;
         margin-top: 20px;
+    }
+
+    .warning {
+        font-size: 13px;
+        color: #c62828;
+        margin-top: 10px;
     }
 </style>
 </head>
@@ -51,11 +62,13 @@
 
 <h1>🎬 BusVideos</h1>
 
-<p id="subtitle">Instale la app y luego pulse Activar BusVideos</p>
+<p id="subtitle">
+Para disfrutar del servicio BusVideos, sigue los siguientes pasos:
+</p>
 
 <p id="busInfo"></p>
 
-<!-- BOTÓN INSTALAR -->
+<!-- BOTÓN 1: INSTALAR BUSVIDEOS -->
 <a
     id="btnInstalar"
     class="btn secondary"
@@ -65,14 +78,27 @@
     ⬇ Instalar BusVideos
 </a>
 
-<!-- BOTÓN ACTIVAR -->
-<button id="btnActivar" class="btn primary" type="button">
-    ▶ Activar BusVideos
+<!-- BOTÓN 2: INSTALAR VLC -->
+<a
+    id="btnVLC"
+    class="btn primary"
+    href="https://play.google.com/store/apps/details?id=org.videolan.vlc"
+    target="_blank"
+>
+    ⬇ Instalar reproductor VLC
+</a>
+
+<p class="warning">
+⚠ Después de instalar o abrir VLC, regresa a esta pantalla usando el botón ← del celular.
+</p>
+
+<!-- BOTÓN 3: CONTINUAR -->
+<button id="btnContinuar" class="btn dark" type="button">
+    ▶ Continuar
 </button>
 
 <p class="note">
-    Android requerido<br>
-    iPhone: accede desde el navegador
+Mantén instaladas las APPs para poder utilizar en todos los buses afiliados al servicio BusVideos.
 </p>
 
 <script>
@@ -105,39 +131,17 @@
     }
 
     // ===============================
-    // TEXTO DINÁMICO
+    // BOTÓN CONTINUAR
     // ===============================
-    const subtitle = document.getElementById("subtitle");
-
-    subtitle.innerText = fromApp
-        ? "Pulse Activar BusVideos para continuar"
-        : "Instale la app y luego pulse Activar BusVideos";
-
-    // ===============================
-    // BOTÓN ACTIVAR
-    // ===============================
-    document.getElementById("btnActivar").addEventListener("click", () => {
+    document.getElementById("btnContinuar").addEventListener("click", () => {
         if (!bus) {
             alert("No se detectó el código del bus.");
             return;
         }
 
-        window.location.href = `busvideos://open?modo=activar&bus=${bus}`;
+        window.location.href = `busvideos://open?modo=continuar&bus=${bus}`;
     });
 
-    // ===============================
-// AUTO ABRIR APP SI ESTÁ INSTALADA
-// ===============================
-if (bus && !fromApp && !params.get("installed")) {
-
-    // Intentamos abrir la app
-    const deepLink = `busvideos://open?bus=${bus}`;
-
-    // Pequeño delay para que cargue la página primero
-    setTimeout(() => {
-        window.location.href = deepLink;
-    }, 500);
-}
 </script>
 
 </body>

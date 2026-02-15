@@ -106,6 +106,47 @@ Mantén instaladas las APPs para poder utilizar en todos los buses afiliados al 
 
 <!-- CÓDIGO BUS ABAJO -->
 <p id="busInfo" style="margin-top:25px; font-size:13px; color:#555;"></p>
+<script>
+    // ===============================
+    // PARÁMETROS
+    // ===============================
+    const params = new URLSearchParams(window.location.search);
 
+    let bus = params.get("bus");
+    const fromApp = params.get("from") === "app";
+
+    // ===============================
+    // GUARDAR / RECUPERAR BUS
+    // ===============================
+    if (bus && bus.trim() !== "") {
+        localStorage.setItem("BUSVIDEOS_BUS", bus);
+    } else {
+        bus = localStorage.getItem("BUSVIDEOS_BUS");
+    }
+
+    // ===============================
+    // MOSTRAR CÓDIGO BUS
+    // ===============================
+    const busInfo = document.getElementById("busInfo");
+
+    if (bus) {
+        busInfo.innerText = "Código de bus detectado: " + bus;
+    } else {
+        busInfo.innerText = "⚠️ No llegó parámetro ?bus= en la URL";
+    }
+
+    // ===============================
+    // BOTÓN CONTINUAR
+    // ===============================
+    document.getElementById("btnContinuar").addEventListener("click", () => {
+        if (!bus) {
+            alert("No se detectó el código del bus.");
+            return;
+        }
+
+        window.location.href = `busvideos://open?modo=continuar&bus=${bus}`;
+    });
+
+</script>
 </body>
 </html>

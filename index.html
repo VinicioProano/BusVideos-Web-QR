@@ -1,72 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BusVideos</title>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 24px;
-        background-color: #ffffff;
-    }
-
-    h1 {
-        font-size: 28px;
-    }
-
-    .btn {
-        display: block;
-        margin: 16px auto;
-        padding: 14px;
-        width: 90%;
-        max-width: 320px;
-        border-radius: 8px;
-        font-size: 16px;
-        text-decoration: none;
-        border: none;
-        cursor: pointer;
-    }
-
-    .secondary {
-        background-color: #4CAF50;
-        color: white;
-    }
-
-    .primary {
-        background-color: #1976D2;
-        color: white;
-    }
-
-    .dark {
-        background-color: #673AB7;
-        color: white;
-    }
-
-    .note {
-        font-size: 13px;
-        color: #666;
-        margin-top: 20px;
-    }
-
-    .warning {
-        font-size: 13px;
-        color: #c62828;
-        margin-top: 10px;
-    }
-</style>
-</head>
 <body>
 
 <h1>🎬 BusVideos</h1>
 
-<p id="subtitle">
-Para disfrutar del servicio BusVideos, sigue los siguientes pasos:
+<p id="subtitle" style="font-size:16px; font-weight:bold;">
+Para usar el servicio BusVideos descarga las APPs siguientes.
+<br><br>
+Si ya las tienes instaladas <b>NO vuelvas a descargar</b>,
+simplemente pulsa el botón <b>Continuar</b>.
 </p>
-
-<p id="busInfo"></p>
 
 <!-- BOTÓN 1: INSTALAR BUSVIDEOS -->
 <a
@@ -88,8 +29,10 @@ Para disfrutar del servicio BusVideos, sigue los siguientes pasos:
     ⬇ Instalar reproductor VLC
 </a>
 
-<p class="warning">
-⚠ Después de instalar o abrir VLC, regresa a esta pantalla usando el botón ← del celular.
+<p style="color:#1565C0; font-weight:bold; margin-top:10px;">
+Después de instalar o abrir una APP,
+regresa a esta pantalla usando el botón 
+<span style="font-size:18px;">⬅</span> del celular.
 </p>
 
 <!-- BOTÓN 3: CONTINUAR -->
@@ -100,6 +43,9 @@ Para disfrutar del servicio BusVideos, sigue los siguientes pasos:
 <p class="note">
 Mantén instaladas las APPs para poder utilizar en todos los buses afiliados al servicio BusVideos.
 </p>
+
+<!-- CÓDIGO BUS ABAJO -->
+<p id="busInfo" style="margin-top:25px; font-size:13px; color:#555;"></p>
 
 <script>
     // ===============================
@@ -120,7 +66,7 @@ Mantén instaladas las APPs para poder utilizar en todos los buses afiliados al 
     }
 
     // ===============================
-    // MOSTRAR CÓDIGO BUS
+    // MOSTRAR CÓDIGO BUS (AHORA ABAJO)
     // ===============================
     const busInfo = document.getElementById("busInfo");
 
@@ -145,4 +91,3 @@ Mantén instaladas las APPs para poder utilizar en todos los buses afiliados al 
 </script>
 
 </body>
-</html>

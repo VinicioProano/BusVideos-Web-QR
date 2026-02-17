@@ -78,14 +78,12 @@ simplemente pulsa el botón <b>Continuar</b>.
 </button>
 
 <!-- BOTÓN 2 -->
-<a
+<button
     id="btnVLC"
     class="btn primary"
-    href="https://play.google.com/store/apps/details?id=org.videolan.vlc"
-    target="_blank"
->
+    onclick="instalarVLC()">
     ⬇ Instalar reproductor VLC
-</a>
+</button>
 
 <p style="color:#1565C0; font-weight:bold; margin-top:10px;">
 Después de instalar o abrir una APP,
@@ -181,6 +179,37 @@ function instalarBusVideos() {
         }
 
     }, 1500);
+}
+// ===============================
+// FUNCIÓN INSTALAR VLC
+// ===============================
+
+    function instalarVLC() {
+
+    const start = Date.now();
+
+    // Intentamos abrir VLC directamente
+    window.location.href = "vlc://";
+
+    setTimeout(function () {
+
+        const elapsed = Date.now() - start;
+
+        if (elapsed < 1500) {
+
+            // VLC NO está instalado → abrir Play Store
+            window.location.href =
+                "https://play.google.com/store/apps/details?id=org.videolan.vlc";
+
+        } else {
+
+            // VLC SÍ está instalado
+            window.location.href =
+                "https://vinicioproano.github.io/BusVideos-Web-QR/?vlc=installed";
+
+        }
+
+    }, 1200);
 }
 
 // ===============================

@@ -114,19 +114,22 @@ Mantén instaladas las APPs para poder utilizar en todos los buses afiliados al 
 
     let bus = params.get("bus");
     const fromApp = params.get("from") === "app";
-
+    const vlcInstalled = params.get("vlc") === "installed";
     // ===============================
 // DETECTAR SI VIENE DESDE APP
 // ===============================
 if (fromApp) {
+    // 🔒 BusVideos ya instalado
+    const btnInstalar = document.getElementById("btnInstalar");
+    btnInstalar.style.opacity = "0.4";
+    btnInstalar.style.pointerEvents = "none";
+}
 
-    // 🔒 Si ya viene desde la app, desactivar instalación
-    document.getElementById("btnInstalar").style.opacity = "0.4";
-    document.getElementById("btnInstalar").style.pointerEvents = "none";
-
-    document.getElementById("btnVLC").style.opacity = "0.4";
-    document.getElementById("btnVLC").style.pointerEvents = "none";
-
+if (vlcInstalled) {
+    // 🔒 VLC ya instalado
+    const btnVLC = document.getElementById("btnVLC");
+    btnVLC.style.opacity = "0.4";
+    btnVLC.style.pointerEvents = "none";
 }
 
     // ===============================

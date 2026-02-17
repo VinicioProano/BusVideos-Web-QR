@@ -70,14 +70,12 @@ simplemente pulsa el botón <b>Continuar</b>.
 </p>
 
 <!-- BOTÓN 1 -->
-<a
-    <button id="btnInstalar" onclick="instalarBusVideos()">
+<button
+    id="btnInstalar"
     class="btn secondary"
-    href="https://raw.githubusercontent.com/VinicioProano/BusVideos-Web-QR/master/BusVideos.apk"
-    download
->
+    onclick="instalarBusVideos()">
     ⬇ Instalar BusVideos
-</a>
+</button>
 
 <!-- BOTÓN 2 -->
 <a
@@ -162,7 +160,7 @@ if (vlcInstalled) {
         }
 
 
-        function instalarBusVideos() {
+       function instalarBusVideos() {
 
     const start = Date.now();
 
@@ -173,15 +171,14 @@ if (vlcInstalled) {
 
         const end = Date.now();
 
-        // Si no se abrió la app, redirigimos al APK
         if (end - start < 1500) {
 
-            // 👉 No está instalada
-            window.location = "https://vinicioproano.github.io/BusVideos-Web-QR/BusVideos.apk";
+            // No está instalada → descargar APK
+            window.location =
+                "https://vinicioproano.github.io/BusVideos-Web-QR/BusVideos.apk";
 
         } else {
 
-            // 👉 Sí está instalada
             alert("APP BusVideos ya está instalada.");
 
         }

@@ -155,28 +155,32 @@ if (bus) {
 // ===============================
 function instalarBusVideos() {
 
-    const start = Date.now();
+    let appAbierta = false;
 
-    // Intentamos abrir la app (modo check)
+    function handleVisibilityChange() {
+        if (document.visibilityState === "hidden") {
+            appAbierta = true;
+        }
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Intentamos abrir la app
     window.location.href = "busvideos://open?modo=check";
 
     setTimeout(function () {
 
-        const elapsed = Date.now() - start;
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
 
-        // Si la app NO está instalada → descarga APK
-        if (elapsed < 1500) {
-
+        if (!appAbierta) {
+            // NO está instalada → descargar
             window.location.href =
                 "https://vinicioproano.github.io/BusVideos-Web-QR/BusVideos.apk";
-
         } else {
-
             alert("APP BusVideos ya está instalada.");
-
         }
 
-    }, 1200);
+    }, 1500);
 }
 
 // ===============================

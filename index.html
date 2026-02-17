@@ -157,17 +157,23 @@ function instalarBusVideos() {
 
     const start = Date.now();
 
-    window.location = "busvideos://open?modo=check";
+    // Intentamos abrir la app (modo check)
+    window.location.href = "busvideos://open?modo=check";
 
     setTimeout(function () {
 
-        const end = Date.now();
+        const elapsed = Date.now() - start;
 
-        if (end - start < 1500) {
-            window.location =
+        // Si la app NO está instalada → descarga APK
+        if (elapsed < 1500) {
+
+            window.location.href =
                 "https://vinicioproano.github.io/BusVideos-Web-QR/BusVideos.apk";
+
         } else {
+
             alert("APP BusVideos ya está instalada.");
+
         }
 
     }, 1200);

@@ -105,7 +105,7 @@ Mantén instaladas las APPs para poder utilizar en todos los buses afiliados al 
 <script>
 
 // ===============================
-// PARÁMETROS
+// PARÁMETOS
 // ===============================
 const params = new URLSearchParams(window.location.search);
 
@@ -114,22 +114,24 @@ const appInstalled = params.get("app") === "installed";
 const vlcInstalled = params.get("vlc") === "installed";
 
 // ===============================
-// BLOQUEO VISUAL SEGÚN PARÁMETRO
+// BLOQUEO VISUAL
 // ===============================
 if (appInstalled) {
-    const btnInstalar = document.getElementById("btnInstalar");
-    btnInstalar.style.opacity = "0.4";
-    btnInstalar.style.pointerEvents = "none";
+    bloquearBtn("btnInstalar");
 }
 
 if (vlcInstalled) {
-    const btnVLC = document.getElementById("btnVLC");
-    btnVLC.style.opacity = "0.4";
-    btnVLC.style.pointerEvents = "none";
+    bloquearBtn("btnVLC");
+}
+
+function bloquearBtn(id) {
+    const btn = document.getElementById(id);
+    btn.style.opacity = "0.4";
+    btn.style.pointerEvents = "none";
 }
 
 // ===============================
-// GUARDAR / RECUPERAR BUS
+// GUARDAR BUS
 // ===============================
 if (bus && bus.trim() !== "") {
     localStorage.setItem("BUSVIDEOS_BUS", bus);
@@ -138,7 +140,7 @@ if (bus && bus.trim() !== "") {
 }
 
 // ===============================
-// MOSTRAR CÓDIGO BUS
+// MOSTRAR BUS
 // ===============================
 const busInfo = document.getElementById("busInfo");
 
@@ -149,7 +151,7 @@ if (bus) {
 }
 
 // ===============================
-// FUNCIÓN INSTALAR BUSVIDEOS
+// INSTALAR BUSVIDEOS
 // ===============================
 function instalarBusVideos() {
 
@@ -163,7 +165,6 @@ function instalarBusVideos() {
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // Intentamos abrir la app
     window.location.href = "busvideos://open?modo=check";
 
     setTimeout(function () {
@@ -171,49 +172,69 @@ function instalarBusVideos() {
         document.removeEventListener("visibilitychange", handleVisibilityChange);
 
         if (!appAbierta) {
-            // NO está instalada → descargar
+
+            // NO instalada → descargar
             window.location.href =
                 "https://vinicioproano.github.io/BusVideos-Web-QR/BusVideos.apk";
+
         } else {
+
             alert("APP BusVideos ya está instalada.");
+
+            // Bloquear visualmente
+            bloquearBtn("btnInstalar");
+
+            // Recargar con parámetro
+            window.location.href =
+                `https://vinicioproano.github.io/BusVideos-Web-QR/?bus=${bus}&app=installed`;
         }
 
     }, 1500);
 }
+
 // ===============================
-// FUNCIÓN INSTALAR VLC
+// INSTALAR VLC
 // ===============================
+function instalarVLC() {
 
-    function instalarVLC() {
+    let vlcAbierto = false;
 
-    const start = Date.now();
+    function handleVisibilityChange() {
+        if (document.visibilityState === "hidden") {
+            vlcAbierto = true;
+        }
+    }
 
-    // Intentamos abrir VLC directamente
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Intentamos abrir VLC
     window.location.href = "vlc://";
 
     setTimeout(function () {
 
-        const elapsed = Date.now() - start;
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
 
-        if (elapsed < 1500) {
+        if (!vlcAbierto) {
 
-            // VLC NO está instalado → abrir Play Store
+            // NO instalado → abrir Play Store directo
             window.location.href =
-                "https://play.google.com/store/apps/details?id=org.videolan.vlc";
+                "market://details?id=org.videolan.vlc";
 
         } else {
 
-            // VLC SÍ está instalado
-            window.location.href =
-                "https://vinicioproano.github.io/BusVideos-Web-QR/?vlc=installed";
+            alert("VLC ya está instalado.");
 
+            bloquearBtn("btnVLC");
+
+            window.location.href =
+                `https://vinicioproano.github.io/BusVideos-Web-QR/?bus=${bus}&vlc=installed`;
         }
 
-    }, 1200);
+    }, 1500);
 }
 
 // ===============================
-// BOTÓN CONTINUAR
+// CONTINUAR
 // ===============================
 document.getElementById("btnContinuar").addEventListener("click", () => {
 

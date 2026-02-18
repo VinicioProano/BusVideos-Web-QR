@@ -165,7 +165,7 @@ function instalarBusVideos() {
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    window.location.href = "busvideos://open?modo=check";
+    window.location.href = `busvideos://open?modo=check&bus=${bus}`;
 
     setTimeout(function () {
 

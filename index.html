@@ -78,12 +78,13 @@ simplemente pulsa el botón <b>Continuar</b>.
 </button>
 
 <!-- BOTÓN 2 -->
-<button
+<a
     id="btnVLC"
     class="btn primary"
-    onclick="instalarVLC()">
+    href="market://details?id=org.videolan.vlc"
+>
     ⬇ Instalar reproductor VLC
-</button>
+</a>
 
 <p style="color:#1565C0; font-weight:bold; margin-top:10px;">
 Después de instalar o abrir una APP,
@@ -192,39 +193,6 @@ function instalarBusVideos() {
     }, 1500);
 }
 
-// ===============================
-// INSTALAR VLC
-// ===============================
-function instalarVLC() {
-
-    const playStoreUrl = "market://details?id=org.videolan.vlc";
-    const webUrl = "https://play.google.com/store/apps/details?id=org.videolan.vlc";
-
-    const start = Date.now();
-    let opened = false;
-
-    function handleVisibilityChange() {
-        if (document.visibilityState === "hidden") {
-            opened = true;
-        }
-    }
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    // Intentamos abrir Play Store directamente
-    window.location.href = playStoreUrl;
-
-    setTimeout(function () {
-
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-
-        if (!opened) {
-            // Si no abrió Play Store, abrimos versión web
-            window.location.href = webUrl;
-        }
-
-    }, 1500);
-}
 
 // ===============================
 // CONTINUAR

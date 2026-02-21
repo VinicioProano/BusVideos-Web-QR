@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="BusVideos">
+<link rel="manifest" href="manifest.json">
+
+    
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BusVideos</title>
@@ -103,20 +110,41 @@ Mantén instaladas las APPs para poder utilizar en todos los buses afiliados al 
 
 <!-- CÓDIGO BUS ABAJO -->
 <p id="busInfo" style="margin-top:25px; font-size:13px; color:#555;"></p>
+
+    
 <script>
 
 // ===============================
 // PARÁMETOS
 // ===============================
 const params = new URLSearchParams(window.location.search);
+const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 let bus = params.get("bus");
 const appInstalled = params.get("app") === "installed";
 const vlcInstalled = params.get("vlc") === "installed";
 
+
+// ===============================
+// BLOQUEO VISUAL IPHONE
+// ===============================
+
+
+if (isIOS) {
+    document.getElementById("btnVLC").href =
+        "https://apps.apple.com/app/vlc-for-mobile/id650377962";
+
+   document.getElementById("subtitle").innerHTML =
+    "Para usar BusVideos en iPhone:<br><br>" +
+    "1️⃣ Instala VLC<br>" +
+    "2️⃣ Luego presiona <b>Continuar</b><br><br>" +
+    "Dentro de VLC entra a <b>Red Local</b> y abre la carpeta de videos.";
+}
+
 // ===============================
 // BLOQUEO VISUAL
 // ===============================
+    
 if (appInstalled) {
     bloquearBtn("btnInstalar");
 }
@@ -204,7 +232,21 @@ document.getElementById("btnContinuar").addEventListener("click", () => {
         return;
     }
 
+   if (isIOS) {
+
+    // Intentar abrir VLC
+    window.location.href = "vlc://";
+
+    // Si no está instalado, ir a App Store
+    setTimeout(function () {
+        window.location.href =
+            "https://apps.apple.com/app/vlc-for-mobile/id650377962";
+    }, 1500);
+
+} else {
+
     window.location.href = `busvideos://open?modo=continuar&bus=${bus}`;
+}
 });
 
 </script>

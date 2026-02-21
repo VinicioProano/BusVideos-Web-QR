@@ -232,21 +232,43 @@ document.getElementById("btnContinuar").addEventListener("click", () => {
         return;
     }
 
-   if (isIOS) {
+    // Mostrar mensaje temporal
+    document.getElementById("subtitle").innerHTML =
+        "Validando servicio, espere por favor...";
 
-    // Intentar abrir VLC
-    window.location.href = "vlc://";
+    fetch(`https://script.google.com/macros/s/AKfycbxs-VQga-j7HP48kS8uqX3_Rrq2P39VP-ikoS5NKl250blR8kGn69Mj10530vknJgRd/exec?action=consultarEstadoServicio&codigo_bus=${bus}`)
+    .then(res => res.json())
+    .then(data => {
 
-    // Si no está instalado, ir a App Store
-    setTimeout(function () {
-        window.location.href =
-            "https://apps.apple.com/app/vlc-for-mobile/id650377962";
-    }, 1500);
+        if (data.ok && data.estado === "ACTIVO") {
 
-} else {
+            if (isIOS) {
 
-    window.location.href = `busvideos://open?modo=continuar&bus=${bus}`;
-}
+                // Intentar abrir VLC
+                window.location.href = "vlc://";
+
+                setTimeout(function () {
+                    window.location.href =
+                        "https://apps.apple.com/app/vlc-for-mobile/id650377962";
+                }, 1500);
+
+            } else {
+
+                window.location.href =
+                    `busvideos://open?modo=continuar&bus=${bus}`;
+            }
+
+        } else {
+
+            alert("Servicio no disponible o suspendido.");
+        }
+
+    })
+    .catch(() => {
+
+        alert("No hay conexión a internet. Intente nuevamente.");
+    });
+
 });
 
 </script>

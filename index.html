@@ -104,6 +104,11 @@ regresa a esta pantalla usando el botón
     ▶ Continuar
 </button>
 
+    <!-- BOTÓN 4 -->
+<button id="btnServicios" class="btn primary" type="button">
+    📍 Conoce BusServicios
+</button>
+
 <p class="note">
 Mantén instaladas las APPs para poder utilizar en todos los buses afiliados al servicio BusVideos.
 </p>
@@ -269,6 +274,17 @@ document.getElementById("btnContinuar").addEventListener("click", () => {
         alert("No hay conexión a internet. Intente nuevamente.");
     });
 
+});
+
+// ===============================
+// BUSSERVICIOS PROXIMAMENTE
+// ===============================
+document.getElementById("btnServicios").addEventListener("click", () => {
+    alert(
+        "BusServicios\n\n" +
+        "Próximamente podrás acceder a hoteles, restaurantes y servicios afiliados desde la app BusVideos.\n\n" +
+        "Estamos trabajando para brindarte una experiencia completa."
+    );
 });
 
 </script>

@@ -84,20 +84,6 @@ Si ya las tienes instaladas NO vuelvas a descargar,
     ⬇ Instalar BusVideos
 </button>
 
-<!-- BOTÓN 2 -->
-<a
-    id="btnVLC"
-    class="btn primary"
-    href="market://details?id=org.videolan.vlc"
->
-    ⬇ Instalar reproductor VLC
-</a>
-
-<p style="color:#1565C0; font-weight:bold; margin-top:10px;">
-Después de instalar VLC,
-regresa a esta pantalla usando el botón 
-<span style="font-size:18px;">◀</span> del celular e ingresa por "Continuar". 
-</p>
 
 <!-- BOTÓN 3 -->
 <button id="btnContinuar" class="btn dark" type="button">
@@ -127,7 +113,7 @@ const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 let bus = params.get("bus");
 const appInstalled = params.get("app") === "installed";
-const vlcInstalled = params.get("vlc") === "installed";
+
 
 
 // ===============================
@@ -136,14 +122,8 @@ const vlcInstalled = params.get("vlc") === "installed";
 
 
 if (isIOS) {
-    document.getElementById("btnVLC").href =
-        "https://apps.apple.com/app/vlc-for-mobile/id650377962";
-
-   document.getElementById("subtitle").innerHTML =
-    "Para usar BusVideos en iPhone:<br><br>" +
-    "1️⃣ Instala VLC<br>" +
-    "2️⃣ Luego presiona <b>Continuar</b><br><br>" +
-    "Dentro de VLC entra a <b>Red Local</b> y abre la carpeta de videos.";
+    document.getElementById("subtitle").innerHTML =
+        "Instala la app BusVideos y luego presiona <b>Continuar</b>.";
 }
 
 // ===============================
@@ -154,9 +134,6 @@ if (appInstalled) {
     bloquearBtn("btnInstalar");
 }
 
-if (vlcInstalled) {
-    bloquearBtn("btnVLC");
-}
 
 function bloquearBtn(id) {
     const btn = document.getElementById(id);
@@ -247,21 +224,8 @@ document.getElementById("btnContinuar").addEventListener("click", () => {
 
         if (data.ok && data.estado === "ACTIVO") {
 
-            if (isIOS) {
-
-                // Intentar abrir VLC
-                window.location.href = "vlc://";
-
-                setTimeout(function () {
-                    window.location.href =
-                        "https://apps.apple.com/app/vlc-for-mobile/id650377962";
-                }, 1500);
-
-            } else {
-
-                window.location.href =
-                    `busvideos://open?modo=continuar&bus=${bus}`;
-            }
+            window.location.href =
+    `busvideos://open?modo=continuar&bus=${bus}`;
 
         } else {
 

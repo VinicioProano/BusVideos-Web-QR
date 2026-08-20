@@ -1,256 +1,572 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="BusVideos">
-<link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
 
-    
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BusVideos</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 24px;
-        background-color: #ffffff;
-    }
+    <title>BusVideos</title>
 
-    h1 {
-        font-size: 28px;
-    }
+    <style>
 
-    .btn {
-        display: block;
-        margin: 16px auto;
-        padding: 14px;
-        width: 90%;
-        max-width: 320px;
-        border-radius: 8px;
-        font-size: 16px;
-        text-decoration: none;
-        border: none;
-        cursor: pointer;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 24px;
+            margin: 0;
+            background-color: #ffffff;
+        }
 
-    .secondary {
-        background-color: #4CAF50;
-        color: white;
-    }
+        .contenedor {
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            padding-top: 35px;
+            box-sizing: border-box;
+        }
 
-    .primary {
-        background-color: #1976D2;
-        color: white;
-    }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+            color: #1565C0;
+        }
 
-    .dark {
-        background-color: #673AB7;
-        color: white;
-    }
+        .subtitulo {
+            font-size: 16px;
+            color: #263238;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
 
-    .note {
-        font-size: 13px;
-        color: #666;
-        margin-top: 20px;
-    }
+        .btn {
+            display: block;
+            box-sizing: border-box;
 
-    .warning {
-        font-size: 13px;
-        color: #c62828;
-        margin-top: 10px;
-    }
-</style>
+            width: 100%;
+            max-width: 320px;
+
+            margin: 14px auto;
+            padding: 14px;
+
+            border: none;
+            border-radius: 8px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+        /* INSTALAR SERVIZONA */
+
+        .instalar {
+            background-color: #43A047;
+        }
+
+        /* INGRESAR A BUSVIDEOS */
+
+        .ingresar {
+            background-color: #1565C0;
+        }
+
+        /* ACTIVAR / REACTIVAR / REINSTALAR */
+
+        .activar {
+            background-color: #FB8C00;
+        }
+
+        .estado {
+            font-size: 15px;
+            font-weight: bold;
+            color: #263238;
+            margin-top: 25px;
+        }
+
+        .mensaje {
+            font-size: 14px;
+            color: #607D8B;
+            margin-top: 14px;
+            line-height: 1.5;
+        }
+
+        .bus-info {
+            font-size: 13px;
+            color: #607D8B;
+            margin-top: 28px;
+        }
+
+        .oculto {
+            display: none;
+        }
+
+    </style>
+
 </head>
+
+
 <body>
 
-<h1>🎬 BusVideos</h1>
 
-<p id="subtitle" style="font-size:16px; font-weight:bold;">
-Para usar el servicio BusVideos descarga la APP siguiente.
-<br><br>
-Si ya las tienes instalada NO vuelvas a descargar,
- pulsa el botón <b>"Continuar"</b>.
-</p>
-
-<!-- BOTÓN 1 -->
-<button
-    id="btnInstalar"
-    class="btn secondary"
-    onclick="instalarBusVideos()">
-    ⬇ Instalar BusVideos
-</button>
+<div class="contenedor">
 
 
-<!-- BOTÓN 3 -->
-<button id="btnContinuar" class="btn dark" type="button">
-    ▶ Continuar
-</button>
+    <h1>🎬 BusVideos</h1>
 
-    <!-- BOTÓN 4 -->
-<button id="btnServicios" class="btn primary" type="button">
-    📍 Conoce BusServicios
-</button>
 
-<p class="note">
-Mantén instalada la APP para poder utilizar en todos los buses afiliados al servicio BusVideos.
-</p>
+    <p class="subtitulo">
+        Entretenimiento a bordo
+    </p>
 
-<!-- CÓDIGO BUS ABAJO -->
-<p id="busInfo" style="margin-top:25px; font-size:13px; color:#555;"></p>
 
-    
+    <!-- ========================================= -->
+    <!-- BOTÓN 1 - INSTALAR SERVIZONA             -->
+    <!-- ========================================= -->
+
+    <button
+        id="btnInstalar"
+        class="btn instalar"
+        type="button"
+    >
+        ⬇ Instalar ServiZona
+    </button>
+
+
+    <!-- ========================================= -->
+    <!-- BOTÓN 2 - INGRESAR A BUSVIDEOS           -->
+    <!-- SOLO ESTADO ACTIVO                       -->
+    <!-- ========================================= -->
+
+    <button
+        id="btnIngresar"
+        class="btn ingresar oculto"
+        type="button"
+    >
+        ▶ Ingresar a BusVideos
+    </button>
+
+
+    <!-- ========================================= -->
+    <!-- BOTÓN 3 - ACTIVACIÓN DEL SERVICIO         -->
+    <!-- ========================================= -->
+
+    <button
+        id="btnActivar"
+        class="btn activar oculto"
+        type="button"
+    >
+        Activar servicio
+    </button>
+
+
+    <!-- ========================================= -->
+    <!-- INFORMACIÓN DEL ESTADO                    -->
+    <!-- ========================================= -->
+
+    <p
+        id="estadoServicio"
+        class="estado"
+    >
+        Consultando servicio...
+    </p>
+
+
+    <p
+        id="mensaje"
+        class="mensaje"
+    >
+    </p>
+
+
+    <!-- ========================================= -->
+    <!-- CÓDIGO DEL BUS                            -->
+    <!-- Lo dejamos visible durante las pruebas    -->
+    <!-- ========================================= -->
+
+    <p
+        id="busInfo"
+        class="bus-info"
+    >
+    </p>
+
+
+</div>
+
+
 <script>
 
-// ===============================
-// PARÁMETOS
-// ===============================
-const params = new URLSearchParams(window.location.search);
-const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-let bus = params.get("bus");
-const appInstalled = params.get("app") === "installed";
+// =====================================================
+// BUSVIDEOS + SERVIZONA
+// PÁGINA PERMANENTE DEL QR
+// =====================================================
 
 
+// =====================================================
+// 1. LEER PARÁMETROS
+// =====================================================
 
-// ===============================
-// BLOQUEO VISUAL IPHONE
-// ===============================
+const params =
+    new URLSearchParams(window.location.search);
 
-
-if (isIOS) {
-    document.getElementById("subtitle").innerHTML =
-        "Instala la app BusVideos y luego presiona <b>Continuar</b>.";
-}
-
-// ===============================
-// BLOQUEO VISUAL
-// ===============================
-    
-if (appInstalled) {
-    bloquearBtn("btnInstalar");
-}
+let bus =
+    params.get("bus");
 
 
-function bloquearBtn(id) {
-    const btn = document.getElementById(id);
-    btn.style.opacity = "0.4";
-    btn.style.pointerEvents = "none";
-}
+// =====================================================
+// 2. ELEMENTOS DE LA PÁGINA
+// =====================================================
 
-// ===============================
-// GUARDAR BUS
-// ===============================
+const btnInstalar =
+    document.getElementById("btnInstalar");
+
+const btnIngresar =
+    document.getElementById("btnIngresar");
+
+const btnActivar =
+    document.getElementById("btnActivar");
+
+const estadoServicio =
+    document.getElementById("estadoServicio");
+
+const mensaje =
+    document.getElementById("mensaje");
+
+const busInfo =
+    document.getElementById("busInfo");
+
+
+// =====================================================
+// 3. GUARDAR / RECUPERAR CÓDIGO DEL BUS
+// =====================================================
+
 if (bus && bus.trim() !== "") {
-    localStorage.setItem("BUSVIDEOS_BUS", bus);
+
+    localStorage.setItem(
+        "BUSVIDEOS_BUS",
+        bus
+    );
+
 } else {
-    bus = localStorage.getItem("BUSVIDEOS_BUS");
+
+    bus =
+        localStorage.getItem(
+            "BUSVIDEOS_BUS"
+        );
 }
 
-// ===============================
-// MOSTRAR BUS
-// ===============================
-const busInfo = document.getElementById("busInfo");
+
+// =====================================================
+// 4. MOSTRAR CÓDIGO DEL BUS
+// =====================================================
 
 if (bus) {
-    busInfo.innerText = "Código de bus detectado: " + bus;
+
+    busInfo.innerText =
+        "Código de bus detectado: " + bus;
+
 } else {
-    busInfo.innerText = "⚠️ No llegó parámetro ?bus= en la URL";
+
+    busInfo.innerText =
+        "⚠️ Código de bus no detectado.";
 }
 
-// ===============================
-// INSTALAR BUSVIDEOS
-// ===============================
-function instalarBusVideos() {
 
-    let appAbierta = false;
+// =====================================================
+// 5. INSTALAR SERVIZONA
+// =====================================================
+//
+// TODAVÍA NO CONECTAMOS LA APK.
+//
+// Cuando ServiZona esté completamente terminada,
+// este botón descargará la APK definitiva.
+// =====================================================
 
-    function handleVisibilityChange() {
-        if (document.visibilityState === "hidden") {
-            appAbierta = true;
-        }
+btnInstalar.addEventListener(
+    "click",
+    function() {
+
+        alert(
+            "La instalación de ServiZona se habilitará al finalizar las pruebas."
+        );
     }
+);
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    window.location.href = `busvideos://open?modo=check&bus=${bus}`;
+// =====================================================
+// 6. INGRESAR A BUSVIDEOS
+// =====================================================
+//
+// POR AHORA NO ABRIMOS SERVIZONA.
+//
+// En el siguiente paso conectaremos este botón
+// con ServiZona y enviaremos el código del bus.
+// =====================================================
 
-    setTimeout(function () {
+btnIngresar.addEventListener(
+    "click",
+    function() {
 
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
+        if (!bus) {
 
-        if (!appAbierta) {
+            alert(
+                "No se detectó el código del bus."
+            );
 
-            // NO instalada → descargar
-            window.location.href =
-                "https://vinicioproano.github.io/BusVideos-Web-QR/BusVideos.apk";
-
-        } else {
-
-            alert("APP BusVideos ya está instalada.");
-
-            // Bloquear visualmente
-            bloquearBtn("btnInstalar");
-
-            // Recargar con parámetro
-            window.location.href =
-                `https://vinicioproano.github.io/BusVideos-Web-QR/?bus=${bus}&app=installed`;
+            return;
         }
 
-    }, 1500);
-}
+        alert(
+            "BusVideos activo.\n\n" +
+            "Código de bus: " + bus + "\n\n" +
+            "En el siguiente paso conectaremos este botón con ServiZona."
+        );
+    }
+);
 
 
-// ===============================
-// CONTINUAR
-// ===============================
-document.getElementById("btnContinuar").addEventListener("click", () => {
+// =====================================================
+// 7. ACTIVAR / REACTIVAR / REINSTALAR
+// =====================================================
+//
+// TODAVÍA NO ABRIMOS EL FLUJO DE ACTIVACIÓN.
+// Primero verificaremos que los estados funcionen.
+// =====================================================
 
-    if (!bus) {
-        alert("No se detectó el código del bus.");
+btnActivar.addEventListener(
+    "click",
+    function() {
+
+        if (!bus) {
+
+            alert(
+                "No se detectó el código del bus."
+            );
+
+            return;
+        }
+
+        alert(
+            "Flujo de activación preparado.\n\n" +
+            "Código de bus: " + bus
+        );
+    }
+);
+
+
+// =====================================================
+// 8. MOSTRAR ESTADO
+// =====================================================
+
+function mostrarEstado(estado) {
+
+    // Ocultar primero botones variables
+
+    btnIngresar.classList.add("oculto");
+
+    btnActivar.classList.add("oculto");
+
+
+    // Normalizar estado
+
+    const estadoNormalizado =
+        (estado || "")
+        .trim()
+        .toUpperCase();
+
+
+    // =================================================
+    // ACTIVO
+    // =================================================
+
+    if (estadoNormalizado === "ACTIVO") {
+
+        estadoServicio.innerText =
+            "Servicio ACTIVO";
+
+        mensaje.innerText =
+            "BusVideos está disponible en esta unidad.";
+
+        btnIngresar.classList.remove(
+            "oculto"
+        );
+
         return;
     }
 
-    // Mostrar mensaje temporal
-    document.getElementById("subtitle").innerHTML =
-        "Validando servicio, espere por favor...";
 
-    fetch(`https://script.google.com/macros/s/AKfycbxs-VQga-j7HP48kS8uqX3_Rrq2P39VP-ikoS5NKl250blR8kGn69Mj10530vknJgRd/exec?action=consultarEstadoServicio&codigo_bus=${bus}`)
-    .then(res => res.json())
-    .then(data => {
+    // =================================================
+    // SUSPENDIDO
+    // =================================================
 
-        if (data.ok && data.estado === "ACTIVO") {
+    if (estadoNormalizado === "SUSPENDIDO") {
 
-            window.location.href =
-    `busvideos://open?modo=continuar&bus=${bus}`;
+        estadoServicio.innerText =
+            "Servicio SUSPENDIDO";
 
-        } else {
+        mensaje.innerText =
+            "El servicio BusVideos se encuentra suspendido.";
 
-            alert("Servicio no disponible o suspendido.");
+        btnActivar.innerText =
+            "🔄 Reactivar servicio";
+
+        btnActivar.classList.remove(
+            "oculto"
+        );
+
+        return;
+    }
+
+
+    // =================================================
+    // INACTIVO
+    // =================================================
+
+    if (estadoNormalizado === "INACTIVO") {
+
+        estadoServicio.innerText =
+            "Servicio INACTIVO";
+
+        mensaje.innerText =
+            "Este servicio requiere reinstalación.";
+
+        btnActivar.innerText =
+            "🔧 Reinstalar servicio";
+
+        btnActivar.classList.remove(
+            "oculto"
+        );
+
+        return;
+    }
+
+
+    // =================================================
+    // NO ACTIVADO
+    // =================================================
+
+    if (
+        estadoNormalizado === "NO ACTIVADO" ||
+        estadoNormalizado === "NO_ACTIVADO" ||
+        estadoNormalizado === "NOT_ACTIVATED"
+    ) {
+
+        estadoServicio.innerText =
+            "Servicio NO ACTIVADO";
+
+        mensaje.innerText =
+            "BusVideos todavía no ha sido activado en esta unidad.";
+
+        btnActivar.innerText =
+            "▶ Activar servicio";
+
+        btnActivar.classList.remove(
+            "oculto"
+        );
+
+        return;
+    }
+
+
+    // =================================================
+    // ESTADO DESCONOCIDO
+    // =================================================
+
+    estadoServicio.innerText =
+        "Servicio no disponible";
+
+    mensaje.innerText =
+        "No se pudo determinar el estado actual de BusVideos.";
+}
+
+
+// =====================================================
+// 9. CONSULTAR ESTADO AUTOMÁTICAMENTE
+// =====================================================
+
+function consultarEstadoServicio() {
+
+    if (!bus) {
+
+        estadoServicio.innerText =
+            "Código de bus no detectado";
+
+        mensaje.innerText =
+            "Escanee nuevamente el código QR ubicado en el bus.";
+
+        return;
+    }
+
+
+    estadoServicio.innerText =
+        "Consultando servicio...";
+
+
+    fetch(
+        "https://script.google.com/macros/s/" +
+        "AKfycbxs-VQga-j7HP48kS8uqX3_Rrq2P39VP-ikoS5NKl250blR8kGn69Mj10530vknJgRd" +
+        "/exec?action=consultarEstadoServicio" +
+        "&codigo_bus=" +
+        encodeURIComponent(bus)
+    )
+
+    .then(
+        response => response.json()
+    )
+
+    .then(
+        data => {
+
+            if (!data.ok) {
+
+                estadoServicio.innerText =
+                    "Servicio no disponible";
+
+                mensaje.innerText =
+                    data.error ||
+                    "No se pudo consultar el estado del servicio.";
+
+                return;
+            }
+
+
+            mostrarEstado(
+                data.estado
+            );
         }
+    )
 
-    })
-    .catch(() => {
+    .catch(
+        error => {
 
-        alert("No hay conexión a internet. Intente nuevamente.");
-    });
+            console.error(error);
 
-});
+            estadoServicio.innerText =
+                "Sin conexión";
 
-// ===============================
-// BUSSERVICIOS PROXIMAMENTE
-// ===============================
-document.getElementById("btnServicios").addEventListener("click", () => {
-    alert(
-        "BusServicios\n\n" +
-        "Próximamente podrás acceder a hoteles, restaurantes y servicios afiliados desde la app BusVideos.\n\n" +
-        "Estamos trabajando para brindarte una experiencia completa."
+            mensaje.innerText =
+                "No se pudo consultar el servicio. Intente nuevamente.";
+        }
     );
-});
+}
+
+
+// =====================================================
+// 10. INICIAR
+// =====================================================
+
+consultarEstadoServicio();
+
 
 </script>
+
+
 </body>
+
 </html>

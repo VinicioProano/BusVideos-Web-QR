@@ -336,11 +336,9 @@ btnIngresar.addEventListener(
             return;
         }
 
-        alert(
-            "BusVideos activo.\n\n" +
-            "Código de bus: " + bus + "\n\n" +
-            "En el siguiente paso conectaremos este botón con ServiZona."
-        );
+        window.location.href =
+            "servizona://busvideos?bus=" +
+            encodeURIComponent(bus);
     }
 );
 

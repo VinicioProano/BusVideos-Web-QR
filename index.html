@@ -513,6 +513,28 @@ function mostrarEstado(estado) {
         return;
     }
 
+    // =================================================
+// PENDIENTE - PRIMERA ACTIVACIÓN
+// =================================================
+
+if (estadoNormalizado === "PENDIENTE") {
+
+    estadoServicio.innerText =
+        "Servicio PENDIENTE";
+
+    mensaje.innerText =
+        "BusVideos todavía debe ser activado en esta unidad.";
+
+    btnActivar.innerText =
+        "▶ Activar servicio";
+
+    btnActivar.classList.remove(
+        "oculto"
+    );
+
+    return;
+}
+
 
     // =================================================
     // NO ACTIVADO

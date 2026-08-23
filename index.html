@@ -419,9 +419,55 @@ btnActivar.addEventListener(
             return;
         }
 
-        alert(
-            "Flujo de activación preparado.\n\n" +
-            "Código de bus: " + bus
+
+        let servizonaAbierta = false;
+
+
+        function detectarSalida() {
+
+            if (document.visibilityState === "hidden") {
+
+                servizonaAbierta = true;
+            }
+        }
+
+
+        document.addEventListener(
+            "visibilitychange",
+            detectarSalida
+        );
+
+
+        // Abrir ServiZona en modo ACTIVACIÓN
+
+        window.location.href =
+            "servizona://busvideos?modo=activar&bus=" +
+            encodeURIComponent(bus);
+
+
+        // Si ServiZona no abrió,
+        // habilitamos el botón de instalación.
+
+        setTimeout(
+            function() {
+
+                document.removeEventListener(
+                    "visibilitychange",
+                    detectarSalida
+                );
+
+
+                if (!servizonaAbierta) {
+
+                    btnInstalar.disabled = false;
+
+                    mensaje.innerHTML =
+                        "<b>Primero instale la app ServiZona.</b><br>" +
+                        "Luego vuelva a pulsar Activar servicio.";
+                }
+
+            },
+            1500
         );
     }
 );

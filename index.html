@@ -87,6 +87,11 @@
             background-color: #1565C0;
         }
 
+        /* ACCESO LOCAL DESDE IPHONE */
+        .iphone {
+            background-color: #37474F;
+        }
+
         /* ACTIVAR / REACTIVAR / REINSTALAR */
 
         .activar {
@@ -166,7 +171,21 @@
         class="btn ingresar oculto"
         type="button"
     >
-        ▶ Ingresar a BusVideos
+        ▶ Ingresar desde Android
+    </button>
+
+
+    <!-- ========================================= -->
+    <!-- ACCESO IPHONE AL CATALOGO LOCAL           -->
+    <!-- La autorización se realiza en el router  -->
+    <!-- ========================================= -->
+
+    <button
+        id="btnIphone"
+        class="btn iphone oculto"
+        type="button"
+    >
+        🍎 Ver películas en iPhone
     </button>
 
 
@@ -246,6 +265,9 @@ const btnInstalar =
 
 const btnIngresar =
     document.getElementById("btnIngresar");
+
+const btnIphone =
+    document.getElementById("btnIphone");
 
 const btnActivar =
     document.getElementById("btnActivar");
@@ -396,6 +418,25 @@ btnIngresar.addEventListener(
         );
     }
 );
+
+
+// =====================================================
+// ACCESO IPHONE: SOLO NAVEGACION AL ROUTER LOCAL
+// El router valida el servicio y el token.
+// No se usa fetch desde GitHub (HTTPS -> HTTP).
+// =====================================================
+
+if (bus && bus.trim() !== "") {
+    btnIphone.classList.remove("oculto");
+}
+
+btnIphone.addEventListener("click", function() {
+    if (!bus) {
+        alert("No se detectó el código del bus. Escanee nuevamente el QR.");
+        return;
+    }
+    window.location.href = "http://192.168.8.1:8090/iphone/";
+});
 
 
 // =====================================================
@@ -686,7 +727,7 @@ function consultarEstadoServicio() {
                 "Sin conexión";
 
             mensaje.innerText =
-                "No se pudo consultar el servicio. Intente nuevamente.";
+                "No se pudo consultar el servicio por internet. Si está conectado al Wi-Fi BusVideos, puede intentar el acceso local desde iPhone.";
         }
     );
 }

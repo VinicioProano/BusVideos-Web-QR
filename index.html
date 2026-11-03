@@ -92,6 +92,24 @@
             background-color: #37474F;
         }
 
+        /* INSTRUCCIONES IPHONE ANTES DE ENTRAR */
+        .iphone-pasos {
+            box-sizing: border-box;
+            max-width: 320px;
+            margin: 12px auto 18px;
+            padding: 16px;
+            border: 1px solid #cfd8dc;
+            border-radius: 10px;
+            background: #f5f9fc;
+            color: #263238;
+            text-align: left;
+            line-height: 1.55;
+        }
+        .iphone-pasos h2 { font-size: 18px; margin: 0 0 8px; color: #1565c0; }
+        .iphone-pasos p { margin: 8px 0; font-size: 14px; }
+        .iphone-pasos .redes { font-weight: bold; }
+        .iphone-pasos .btn { margin-bottom: 0; background: #1565c0; }
+
         /* ACTIVAR / REACTIVAR / REINSTALAR */
 
         .activar {
@@ -187,6 +205,16 @@
     >
         🍎 Ver películas en iPhone
     </button>
+
+    <section id="instruccionesIphone" class="iphone-pasos oculto" aria-label="Instrucciones para iPhone">
+        <h2>📶 Primero, conéctate al Wi-Fi del bus</h2>
+        <p>1. En tu iPhone abre <strong>Ajustes → Wi-Fi</strong>.</p>
+        <p>2. Selecciona <span class="redes">BusVideos</span> o <span class="redes">BusVideos-5G</span>.</p>
+        <p>3. Si aparece «Sin conexión a internet», puedes mantenerte conectado: las películas están dentro del bus.</p>
+        <p>4. Regresa a Safari y pulsa el botón de abajo.</p>
+        <button id="btnContinuarIphone" class="btn" type="button">▶ Ya estoy conectado. Ver películas</button>
+        <p>Si no se abre el catálogo, revisa que sigas conectado al Wi-Fi BusVideos y vuelve a intentarlo.</p>
+    </section>
 
 
     <!-- ========================================= -->
@@ -435,6 +463,12 @@ btnIphone.addEventListener("click", function() {
         alert("No se detectó el código del bus. Escanee nuevamente el QR.");
         return;
     }
+    const instrucciones = document.getElementById("instruccionesIphone");
+    instrucciones.classList.remove("oculto");
+    document.getElementById("btnContinuarIphone").focus();
+});
+
+document.getElementById("btnContinuarIphone").addEventListener("click", function() {
     window.location.href = "http://192.168.8.1:8090/iphone/";
 });
 
